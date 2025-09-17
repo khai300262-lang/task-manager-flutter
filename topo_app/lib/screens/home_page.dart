@@ -13,10 +13,15 @@ class _HomePageState extends State<HomePage> {
   final List<Task> _tasks = [];
   final _controller = TextEditingController();
   DateTime? _selectedDeadline; // deadline
+  int? _editingIndex;
 
   void _addTask() {
     if (_controller.text.isEmpty) return;
     setState(() {
+      if (_editingIndex != null) {
+        _tasks.removeAt(_editingIndex!);
+        _editingIndex = null;
+      }
       _tasks.insert(
         0,
         Task(
@@ -38,6 +43,15 @@ class _HomePageState extends State<HomePage> {
   void _removeTask(int index) {
     setState(() {
       _tasks.removeAt(index);
+    });
+  }
+
+
+  void _editTask(int index) {
+    setState(() {
+      _editingIndex = index;
+      _controller.text = _tasks[index].title;
+      _selectedDeadline = _tasks[index].deadline;
     });
   }
 
@@ -105,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: _addTask,
-                    child: const Text("Add Task"),
+                    child: Text(_editingIndex != null ? "Edit Task" : "Add Task"),
                   ),
                 ],
               ),
@@ -114,6 +128,7 @@ class _HomePageState extends State<HomePage> {
               tasks: _tasks,
               onToggleDone: _toggleTaskDone,
               onRemove: _removeTask,
+              onEdit: _editTask,
             ),
           ],
         ),

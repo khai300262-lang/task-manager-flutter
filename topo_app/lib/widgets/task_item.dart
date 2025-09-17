@@ -6,12 +6,14 @@ class TaskItem extends StatelessWidget {
   final Task task;
   final VoidCallback onToggleDone;
   final VoidCallback onRemove;
+  final VoidCallback onEdit;
 
   const TaskItem({
     super.key,
     required this.task,
     required this.onToggleDone,
     required this.onRemove,
+    required this.onEdit,
   });
 
   @override
@@ -32,9 +34,18 @@ class TaskItem extends StatelessWidget {
         ),
       ),
       subtitle: Text(deadlineText),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete, color: Colors.red),
-        onPressed: onRemove,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.blue), // Edit icon
+            onPressed: onEdit,
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: onRemove,
+          ),
+        ],
       ),
     );
   }

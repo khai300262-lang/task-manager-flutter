@@ -6,12 +6,13 @@ class TaskList extends StatelessWidget {
   final List<Task> tasks;
   final void Function(int) onToggleDone;
   final void Function(int) onRemove;
-
+  final void Function(int) onEdit;
   const TaskList({
     super.key,
     required this.tasks,
     required this.onToggleDone,
     required this.onRemove,
+    required this.onEdit,
   });
 
   @override
@@ -24,6 +25,7 @@ class TaskList extends StatelessWidget {
         task: tasks[i],
         onToggleDone: () => onToggleDone(i),
         onRemove: () => onRemove(i),
+        onEdit: () => onEdit(i),
       ),
     );
   }
