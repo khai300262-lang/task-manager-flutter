@@ -12,8 +12,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Task> _tasks = [];
   final _controller = TextEditingController();
-  DateTime? _selectedDeadline; // deadline
+  DateTime? _selectedDeadline;
   int? _editingIndex;
+  Priority _selectedPriority = Priority.low; // New state for priority
+  Priority? _filterPriority; // New state for filter
 
   void _addTask() {
     if (_controller.text.isEmpty) return;
@@ -27,10 +29,12 @@ class _HomePageState extends State<HomePage> {
         Task(
           title: _controller.text,
           deadline: _selectedDeadline,
+          priority: _selectedPriority, // Add priority to new task
         ),
       );
       _controller.clear();
       _selectedDeadline = null;
+      _selectedPriority = Priority.low;
     });
   }
 
@@ -46,12 +50,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   void _editTask(int index) {
     setState(() {
       _editingIndex = index;
       _controller.text = _tasks[index].title;
       _selectedDeadline = _tasks[index].deadline;
+      _selectedPriority = _tasks[index].priority; // Set priority for editing
     });
   }
 
@@ -84,6 +88,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Task> filteredTasks = _tasks.where((task) {
+      if (_filterPriority == null) {
+        return true;
+      }
+      return task.priority == _filterPriority;
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(title: const Text("Topo App - Task Manager")),
       body: SingleChildScrollView(
@@ -117,6 +128,28 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Priority:"),
+                      ...Priority.values.map((priority) {
+                        return IconButton(
+                          icon: Icon(
+                            _selectedPriority.index >= priority.index
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: Colors.amber,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _selectedPriority = priority;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: _addTask,
                     child: Text(_editingIndex != null ? "Edit Task" : "Add Task"),
@@ -124,8 +157,41 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            const Divider(),
+            // Filter section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Filter by Priority:"),
+                IconButton(
+                  icon: Icon(
+                    _filterPriority == null ? Icons.filter_alt : Icons.filter_alt_off,
+                    color: _filterPriority == null ? Colors.blue : Colors.red,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _filterPriority = null;
+                    });
+                  },
+                ),
+                ...Priority.values.map((priority) {
+                  return IconButton(
+                    icon: Icon(
+                      priority.index >= Priority.low.index ? Icons.star : Icons.star_border,
+                      color: _filterPriority == priority ? Colors.amber : Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _filterPriority = priority;
+                      });
+                    },
+                  );
+                }).toList(),
+              ],
+            ),
+            const Divider(),
             TaskList(
-              tasks: _tasks,
+              tasks: filteredTasks, // Use the filtered list
               onToggleDone: _toggleTaskDone,
               onRemove: _removeTask,
               onEdit: _editTask,

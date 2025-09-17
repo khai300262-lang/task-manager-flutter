@@ -7,6 +7,7 @@ class TaskList extends StatelessWidget {
   final void Function(int) onToggleDone;
   final void Function(int) onRemove;
   final void Function(int) onEdit;
+
   const TaskList({
     super.key,
     required this.tasks,

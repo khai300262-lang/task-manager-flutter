@@ -22,6 +22,16 @@ class TaskItem extends StatelessWidget {
         ? DateFormat('dd/MM/yyyy HH:mm').format(task.deadline!)
         : "No deadline";
 
+    // Build priority stars
+    final List<Widget> priorityStars = List.generate(
+      task.priority.index + 1,
+          (index) => const Icon(
+        Icons.star,
+        color: Colors.amber,
+        size: 16,
+      ),
+    );
+
     return ListTile(
       leading: Checkbox(
         value: task.isDone,
@@ -33,12 +43,18 @@ class TaskItem extends StatelessWidget {
           decoration: task.isDone ? TextDecoration.lineThrough : null,
         ),
       ),
-      subtitle: Text(deadlineText),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(deadlineText),
+          Row(children: priorityStars), // Display the stars
+        ],
+      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: const Icon(Icons.edit, color: Colors.blue), // Edit icon
+            icon: const Icon(Icons.edit, color: Colors.blue),
             onPressed: onEdit,
           ),
           IconButton(
