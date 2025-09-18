@@ -1,21 +1,13 @@
-enum Priority{
-  low,
-  medium,
-  high,
-}
 class Task {
   String title;
-  bool isDone;
   DateTime? deadline;
-  Priority priority;
-
+  int priority; // 1 = High, 2 = Medium, 3 = Low
+  bool isCompleted;
 
   Task({
     required this.title,
-    this.isDone = false,
     this.deadline,
-    this.priority = Priority.low,
-
-  }
-      );
+    this.priority = 2,
+    this.isCompleted = false,
+  });
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'controllers/task_controller.dart';
 import 'screens/home_page.dart';
 
 void main() {
+  // Inject controller 1 lần duy nhất
+  Get.put(TaskController());
   runApp(const MyApp());
 }
 
@@ -10,20 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Topo App - Task Manager',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.blue.shade50, // light background
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blue.shade400,
-          foregroundColor: Colors.white,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue.shade400,
-            foregroundColor: Colors.white,
-          ),
-        ),
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.blue[50],
+        useMaterial3: true,
       ),
       home: const HomePage(),
     );
