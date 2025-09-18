@@ -4,7 +4,7 @@ import 'controllers/task_controller.dart';
 import 'screens/home_page.dart';
 
 void main() {
-  // Inject controller 1 lần duy nhất
+
   Get.put(TaskController());
   runApp(const MyApp());
 }
