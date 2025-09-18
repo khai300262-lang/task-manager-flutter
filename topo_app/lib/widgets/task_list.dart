@@ -9,10 +9,10 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final taskController = Get.find<TaskController>();
+    final controller = Get.find<TaskController>();
 
     return Obx(() {
-      final List<Task> list = taskController.filteredTasks;
+      final List<Task> list = controller.filteredTasks;
       if (list.isEmpty) {
         return const Center(child: Text('No tasks available'));
       }
