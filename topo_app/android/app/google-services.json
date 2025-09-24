@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "715025222490",
+    "project_id": "topo-app-30336",
+    "storage_bucket": "topo-app-30336.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715025222490:android:6558f11ba9b84abb254163",
+        "android_client_info": {
+          "package_name": "com.example.topo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715025222490-a52q2sivce1rc355mgq8umoq5tv2qdoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHVRM-imdxAx0USpmm3G2JiZQjipIgULU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715025222490-a52q2sivce1rc355mgq8umoq5tv2qdoe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "715025222490-cplh8pfhcqkkting85eo4okc6jddkrfr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.topoApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

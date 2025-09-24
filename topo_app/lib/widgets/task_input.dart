@@ -31,7 +31,13 @@ class _TaskInputState extends State<TaskInput> {
     );
     if (time == null) return;
     setState(() {
-      _pickedDeadline = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+      _pickedDeadline = DateTime(
+        date.year,
+        date.month,
+        date.day,
+        time.hour,
+        time.minute,
+      );
     });
   }
 
@@ -77,12 +83,17 @@ class _TaskInputState extends State<TaskInput> {
                 ElevatedButton(
                   onPressed: _add,
                   style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                   ),
                   child: const Text('Add'),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 10),
