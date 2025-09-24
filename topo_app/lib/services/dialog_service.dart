@@ -124,9 +124,11 @@ class DialogService {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _buildInfoItem(
+              'Name',
+              authController.userData['name'] ?? 'Not available',
+            ),
             _buildInfoItem('Email', user.email ?? 'Not available'),
-            _buildInfoItem('UID', user.uid),
-            _buildInfoItem('Email Verified', user.emailVerified ? 'Yes' : 'No'),
           ],
         ),
         actions: [
