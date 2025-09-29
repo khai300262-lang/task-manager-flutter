@@ -11,9 +11,10 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Remove Get.lazyPut here, TaskController should already be registered
+    if (!Get.isRegistered<TaskController>()) {
+      Get.put(TaskController());
+    }
     final taskController = Get.find<TaskController>();
-
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
