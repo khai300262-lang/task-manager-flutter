@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home_page.dart';
 import '../controllers/task_controller.dart';
 import '../controllers/auth_controller.dart';
@@ -52,7 +51,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _controllers.email.text.trim(),
         _controllers.password.text.trim(),
       );
-      await _saveUserData(_authController.user.value!);
 
       Get.snackbar(
         "Success",
@@ -68,19 +66,6 @@ class _RegisterPageState extends State<RegisterPage> {
       Get.snackbar("Error", error.toString());
     } finally {
       if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-  Future<void> _saveUserData(User user) async {
-    try {
-      final firestore = FirebaseFirestore.instance;
-      await firestore.collection('users').doc(user.uid).set({
-        'name': _controllers.name.text.trim(),
-        'email': _controllers.email.text.trim(),
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-    } on FirebaseException catch (error) {
-      print("Firestore Error: ${error.code}");
     }
   }
 

@@ -175,10 +175,12 @@ class DialogService {
 
   static Future<void> _performLogout() async {
     final authController = Get.find<AuthController>();
-    final taskController = Get.find<TaskController>();
+
+    if (Get.isRegistered<TaskController>()) {
+      Get.delete<TaskController>(force: true);
+    }
 
     await authController.logout();
-    Get.delete<TaskController>(force: true);
     Get.offAll(() => LoginPage());
   }
 }

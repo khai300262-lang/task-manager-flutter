@@ -14,7 +14,7 @@ class _TaskInputState extends State<TaskInput> {
   final TaskController ctrl = Get.find();
 
   DateTime? _pickedDeadline;
-  int _priority = 2; // default Medium
+  int _priority = 2;
 
   Future<void> _pickDateTime() async {
     final now = DateTime.now();

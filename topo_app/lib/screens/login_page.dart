@@ -31,7 +31,12 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (_authController.user.value != null) {
-        Get.put(TaskController());
+        if (!Get.isRegistered<TaskController>()) {
+          Get.put(TaskController());
+        } else {
+          Get.find<TaskController>().loadTasks();
+        }
+
         Get.offAll(() => HomePage());
       }
     } catch (error) {

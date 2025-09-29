@@ -9,13 +9,22 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!Get.isRegistered<TaskController>()) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     final controller = Get.find<TaskController>();
 
     return Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
       final List<Task> list = controller.filteredTasks;
       if (list.isEmpty) {
         return const Center(child: Text('No tasks available'));
       }
+
       return ListView.builder(
         itemCount: list.length,
         padding: const EdgeInsets.only(bottom: 16, top: 8),

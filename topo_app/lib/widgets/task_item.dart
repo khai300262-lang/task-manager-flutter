@@ -11,6 +11,7 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Remove Get.lazyPut here, TaskController should already be registered
     final taskController = Get.find<TaskController>();
 
     return Card(
@@ -20,7 +21,7 @@ class TaskItem extends StatelessWidget {
         leading: Checkbox(
           value: task.isCompleted,
           onChanged: (newValue) {
-            if (newValue == true) {
+            if (newValue != null) {
               taskController.toggleComplete(task);
             }
           },
